@@ -3,4 +3,5 @@ mod utils;
 
 fn main() {
     puzzles::day1::solve();
+    puzzles::day2::solve();
 }
