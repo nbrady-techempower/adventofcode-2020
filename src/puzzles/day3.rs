@@ -20,12 +20,7 @@ fn part1(input: &Vec<&str>) {
 }
 
 fn part2(input: &Vec<&str>) {
-    let slopes: Vec<(usize, usize)> = vec![(1,1), (3,1), (5,1), (7,1), (1,2)];
-    let mut total_trees: i64 = 1;
-    for slope in slopes {
-        total_trees = total_trees * get_trees(input, slope);
-    }
-    println!(" Part 2: {:?}", total_trees);
+    println!(" Part 2: {:?}", vec![(1,1), (3,1), (5,1), (7,1), (1,2)].iter().fold(1i64, |mut total, val| total * get_trees(input, *val)));
 }
 
 // https://adventofcode.com/2020/day/3
