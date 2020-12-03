@@ -1,10 +1,11 @@
+use crate::*;
 use crate::utils::*;
 
 fn part1(input: &Vec<i64>) {
     for i in 0..(input.len() - 1) {
         for j in (i+1)..input.len() {
             if input[i] + input[j] == 2020 {
-                println!(" Part 1: {}", input[i] * input[j]);
+                part1!(input[i] * input[j]);
             }
         }
     }
@@ -15,7 +16,7 @@ fn part2(input: &Vec<i64>) {
         for j in (i+1)..(input.len() - 1) {
             for k in (j+1)..input.len() {
                 if input[i] + input[j] + input[k] == 2020 {
-                    println!(" Part 2: {}", input[i] * input[j] * input[k]);
+                    part2!(input[i] * input[j] * input[k]);
                 }
             }
         }

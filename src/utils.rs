@@ -1,5 +1,23 @@
 use std::fs::read_to_string;
 
+#[macro_export]
+macro_rules! part1 {
+    ($($x: expr),*) => {{
+        print!(" Part 1: ");
+        $(print!("{:?}", $x);)*
+        println!();
+    }}
+}
+
+#[macro_export]
+macro_rules! part2 {
+    ($($x: expr),*) => {{
+        print!(" Part 2: ");
+        $(print!("{:?}", $x);)*
+        println!();
+    }}
+}
+
 pub fn read_file(p: &str) -> String {
     read_to_string("C:/Development/aoc-2020/src/puzzles/".to_owned() + p)
         .unwrap_or("".to_string())

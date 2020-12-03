@@ -1,3 +1,4 @@
+use crate::*;
 use crate::utils::*;
 
 fn get_min_max(s: &str) -> (usize, usize) {
@@ -15,7 +16,7 @@ fn part1(input: &Vec<&str>) {
             valid += 1;
         }
     }
-    println!(" Part 1: {}", valid);
+    part1!(valid);
 }
 
 fn part2(input: &Vec<&str>) {
@@ -27,7 +28,7 @@ fn part2(input: &Vec<&str>) {
             valid += 1;
         }
     }
-    println!(" Part 2: {}", valid);
+    part2!(valid);
 }
 
 // https://adventofcode.com/2020/day/2
