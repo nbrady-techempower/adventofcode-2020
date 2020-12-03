@@ -20,7 +20,7 @@ fn part1(input: &Vec<&str>) {
 }
 
 fn part2(input: &Vec<&str>) {
-    println!(" Part 2: {:?}", vec![(1,1), (3,1), (5,1), (7,1), (1,2)].iter().fold(1i64, |mut total, val| total * get_trees(input, *val)));
+    println!(" Part 2: {:?}", vec![(1,1), (3,1), (5,1), (7,1), (1,2)].iter().fold(1, |mut total, val| total * get_trees(input, *val)));
 }
 
 // https://adventofcode.com/2020/day/3
