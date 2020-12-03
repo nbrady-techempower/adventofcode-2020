@@ -1,10 +1,10 @@
 use crate::utils::*;
 
-fn part1(input: &Vec<&str>) {
+fn get_trees(input: &Vec<&str>, slope: (usize, usize)) -> i64 {
     let mut right = 0;
     let mut num_trees = 0;
-    for i in 1..input.len() {
-        right += 3;
+    for i in (slope.1..input.len()).step_by(slope.1) {
+        right += slope.0;
         if right > input[i].len() - 1 {
             right = right - input[i].len();
         }
@@ -12,27 +12,19 @@ fn part1(input: &Vec<&str>) {
             num_trees += 1;
         }
     }
-    println!(" Part 1: {:?}", num_trees);
+    num_trees
+}
+
+fn part1(input: &Vec<&str>) {
+    println!(" Part 1: {:?}", get_trees(input, (3, 1)));
 }
 
 fn part2(input: &Vec<&str>) {
     let slopes: Vec<(usize, usize)> = vec![(1,1), (3,1), (5,1), (7,1), (1,2)];
     let mut total_trees: i64 = 1;
-    for slope in slopes.iter() {
-        let mut num_trees = 0;
-        let mut right = 0;
-        for i in (slope.1..input.len()).step_by(slope.1) {
-            right += slope.0;
-            if right > input[i].len() - 1 {
-                right = right - input[i].len();
-            }
-            if input[i].chars().nth(right) == Some('#') {
-                num_trees += 1;
-            }
-        }
-        total_trees = total_trees * num_trees;
+    for slope in slopes {
+        total_trees = total_trees * get_trees(input, slope);
     }
-
     println!(" Part 2: {:?}", total_trees);
 }
 
