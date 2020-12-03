@@ -5,12 +5,8 @@ fn get_trees(input: &Vec<&str>, slope: (usize, usize)) -> i64 {
     let mut num_trees = 0;
     for i in (slope.1..input.len()).step_by(slope.1) {
         right += slope.0;
-        if right > input[i].len() - 1 {
-            right = right - input[i].len();
-        }
-        if input[i].chars().nth(right) == Some('#') {
-            num_trees += 1;
-        }
+        right = right % input[i].len();
+        num_trees += (input[i].chars().nth(right) == Some('#')) as i64;
     }
     num_trees
 }
