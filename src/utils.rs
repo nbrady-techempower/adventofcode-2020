@@ -33,6 +33,31 @@ impl InputUtils for String {
     }
 }
 
+pub trait StrUtils {
+    fn contains_any(&self, patterns: Vec<&str>) -> bool;
+    fn contains_all(&self, patterns: Vec<&str>) -> bool;
+}
+
+impl StrUtils for &str {
+    fn contains_any(&self, patterns: Vec<&str>) -> bool {
+        for p in patterns {
+            if self.contains(p) {
+                return true;
+            }
+        }
+        false
+    }
+
+    fn contains_all(&self, patterns: Vec<&str>) -> bool {
+        for p in patterns {
+            if !self.contains(p) {
+                return false;
+            }
+        }
+        true
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use crate::utils::InputUtils;

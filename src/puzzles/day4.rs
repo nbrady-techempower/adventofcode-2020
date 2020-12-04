@@ -11,20 +11,16 @@ fn found_min_max_year(input: &str, pattern: &str, min: i64, max: i64) -> bool {
 
 fn part1(input: &Vec<&str>) {
     let mut valid = 0;
-    let mut fields = 7;
+    let mut cur_str = "".to_string();
     for i in input.iter() {
         if i.len() == 0 {
-            valid += (fields == 0) as i32;
-            fields = 7;
-            continue;
+            if (&cur_str[..]).contains_all(vec!["ecl:", "eyr:", "pid:", "hcl:", "byr:", "iyr:", "hgt:"]) {
+                valid += 1;
+            }
+            cur_str = "".to_string();
+        } else {
+            cur_str = " ".to_string() + &cur_str + i;
         }
-        fields -= i.contains("ecl:") as i32;
-        fields -= i.contains("eyr:") as i32;
-        fields -= i.contains("pid:") as i32;
-        fields -= i.contains("hcl:") as i32;
-        fields -= i.contains("byr:") as i32;
-        fields -= i.contains("iyr:") as i32;
-        fields -= i.contains("hgt:") as i32;
     }
 
     part1!(valid);
@@ -41,13 +37,7 @@ fn part2(input: &Vec<&str>) {
             fields = 7;
             continue;
         }
-        fields -= i.contains("ecl:amb") as i32;
-        fields -= i.contains("ecl:blu") as i32;
-        fields -= i.contains("ecl:brn") as i32;
-        fields -= i.contains("ecl:gry") as i32;
-        fields -= i.contains("ecl:grn") as i32;
-        fields -= i.contains("ecl:hzl") as i32;
-        fields -= i.contains("ecl:oth") as i32;
+        fields -= i.contains_any(vec!["ecl:amb", "ecl:blu", "ecl:brn", "ecl:gry", "ecl:grn", "ecl:hzl", "ecl:oth"]) as i32;
         fields -= i.contains("hcl:#") as i32;
 
         fields -= found_min_max_year(i, "byr:", 1920, 2002) as i32;
