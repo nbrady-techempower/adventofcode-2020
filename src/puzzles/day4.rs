@@ -58,19 +58,15 @@ fn part2(input: &Vec<&str>) {
             }
 
         }
-        if i.contains("hgt:") && i.contains("cm") {
+        if i.contains_all(vec!["hgt:", "cm"]) {
             let idx = i.find("hgt:").unwrap()+4;
             let num = i[idx..idx+3].parse::<i64>().unwrap_or(0);
-            if (num >= 150) && (num <= 193) {
-                fields -= 1;
-            }
+            fields -= ((num >= 150) && (num <= 193)) as i32;
         }
-        if i.contains("hgt:") && i.contains("in") {
+        if i.contains_all(vec!["hgt:", "in"]) {
             let idx = i.find("hgt:").unwrap()+4;
             let num = i[idx..idx+2].parse::<i64>().unwrap_or(0);
-            if (num >= 59) && (num <= 76) {
-                fields -= 1;
-            }
+            fields -= ((num >= 59) && (num <= 76)) as i32;
         }
     }
 
