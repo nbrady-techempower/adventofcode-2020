@@ -52,25 +52,33 @@ pub trait StrUtils {
     fn contains_all(&self, patterns: Vec<&str>) -> bool;
 }
 
-impl StrUtils for &str {
-    fn contains_any(&self, patterns: Vec<&str>) -> bool {
-        for p in patterns {
-            if self.contains(p) {
-                return true;
-            }
-        }
-        false
-    }
+macro_rules! str_utils {
+    ($($type: ty),*) => {
+        $(
+            impl StrUtils for $type {
+                fn contains_any(&self, patterns: Vec<&str>) -> bool {
+                    for p in patterns {
+                        if self.contains(p) {
+                            return true;
+                        }
+                    }
+                    false
+                }
 
-    fn contains_all(&self, patterns: Vec<&str>) -> bool {
-        for p in patterns {
-            if !self.contains(p) {
-                return false;
+                fn contains_all(&self, patterns: Vec<&str>) -> bool {
+                    for p in patterns {
+                        if !self.contains(p) {
+                            return false;
+                        }
+                    }
+                    true
+                }
             }
-        }
-        true
-    }
+        )*
+   }
 }
+
+str_utils!(String, &str);
 
 #[cfg(test)]
 mod tests {
