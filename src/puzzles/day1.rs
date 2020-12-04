@@ -24,9 +24,7 @@ fn part2(input: &Vec<i64>) {
 }
 
 // https://adventofcode.com/2020/day/1
-pub fn solve() {
-    println!("** Day 1 **");
-    let input = read_file("day1-input.txt");
+pub fn solve(input: String) {
     let input: Vec<i64> = input.to_vec_i64();
     part1(&input);
     part2(&input);

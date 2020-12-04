@@ -1,5 +1,4 @@
 use crate::*;
-use crate::utils::*;
 
 fn get_min_max(s: &str) -> (usize, usize) {
     let parts: Vec<usize> = s.split("-").map(|i| i.parse().unwrap_or(0)).collect();
@@ -32,9 +31,7 @@ fn part2(input: &Vec<&str>) {
 }
 
 // https://adventofcode.com/2020/day/2
-pub fn solve() {
-    println!("** Day 2 **");
-    let input = read_file("day2-input.txt");
+pub fn solve(input: String) {
     let input: Vec<&str> = input.split("\n").collect();
     part1(&input);
     part2(&input);
