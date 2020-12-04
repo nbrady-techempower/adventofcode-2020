@@ -1,5 +1,4 @@
 use crate::*;
-use crate::utils::*;
 
 fn found_min_max_year(input: &str, pattern: &str, min: i64, max: i64) -> bool {
     if let Some(idx) = input.find(pattern) {

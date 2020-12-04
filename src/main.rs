@@ -1,14 +1,17 @@
-use crate::puzzles::get_puzzles;
-
 mod puzzles;
 mod utils;
+
+use crate::puzzles::*;
+use crate::utils::utils::*;
+use crate::utils::str_utils::*;
+use crate::utils::int_utils::*;
 
 // Set this to 0 to run all the days
 const DAY: usize = 4;
 
 fn get_input(day: usize) -> String {
     println!("** Day {} **", day);
-    utils::read_file(&format!("day{}-input.txt", day))
+    read_file(&format!("day{}-input.txt", day))
 }
 
 fn main() {

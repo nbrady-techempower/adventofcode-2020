@@ -1,5 +1,4 @@
 use crate::*;
-use crate::utils::*;
 
 fn part1(input: &Vec<i64>) {
     for i in 0..(input.len() - 1) {

@@ -47,42 +47,10 @@ impl InputUtils for String {
     }
 }
 
-pub trait StrUtils {
-    fn contains_any(&self, patterns: Vec<&str>) -> bool;
-    fn contains_all(&self, patterns: Vec<&str>) -> bool;
-}
-
-macro_rules! str_utils {
-    ($($type: ty),*) => {
-        $(
-            impl StrUtils for $type {
-                fn contains_any(&self, patterns: Vec<&str>) -> bool {
-                    for p in patterns {
-                        if self.contains(p) {
-                            return true;
-                        }
-                    }
-                    false
-                }
-
-                fn contains_all(&self, patterns: Vec<&str>) -> bool {
-                    for p in patterns {
-                        if !self.contains(p) {
-                            return false;
-                        }
-                    }
-                    true
-                }
-            }
-        )*
-   }
-}
-
-str_utils!(String, &str);
 
 #[cfg(test)]
 mod tests {
-    use crate::utils::InputUtils;
+    use crate::utils::utils::InputUtils;
 
     #[test]
     fn str_to_vec_i64_works() {
