@@ -14,9 +14,7 @@ fn part1(input: &Vec<&str>) {
     let mut cur_str = "".to_string();
     for i in input.iter() {
         if i.len() == 0 {
-            if (&cur_str[..]).contains_all(vec!["ecl:", "eyr:", "pid:", "hcl:", "byr:", "iyr:", "hgt:"]) {
-                valid += 1;
-            }
+            valid += i32!((&cur_str[..]).contains_all(vec!["ecl:", "eyr:", "pid:", "hcl:", "byr:", "iyr:", "hgt:"]));
             cur_str = "".to_string();
         } else {
             cur_str = " ".to_string() + &cur_str + i;
