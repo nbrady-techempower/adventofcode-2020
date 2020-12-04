@@ -12,7 +12,7 @@ fn found_min_max_year(input: &str, pattern: &str, min: i64, max: i64) -> bool {
 fn part1(input: &Vec<&str>) {
     let mut valid = 0;
     let mut cur_str = "".to_string();
-    for i in input.iter() {
+    for i in input {
         if i.len() == 0 {
             valid += i32!((&cur_str[..]).contains_all(vec!["ecl:", "eyr:", "pid:", "hcl:", "byr:", "iyr:", "hgt:"]));
             cur_str = "".to_string();
@@ -27,7 +27,7 @@ fn part1(input: &Vec<&str>) {
 fn part2(input: &Vec<&str>) {
     let mut valid = 0;
     let mut fields = 7;
-    for i in input.iter() {
+    for i in input {
         if i.len() == 0 {
             valid += i32!(fields == 0);
             fields = 7;

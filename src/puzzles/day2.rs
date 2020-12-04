@@ -11,9 +11,7 @@ fn part1(input: &Vec<&str>) {
         let parts: Vec<&str> = i.split(" ").collect();
         let count = parts[2].matches(&parts[1][0..1]).count();
         let (min, max) = get_min_max(parts[0]);
-        if (min..=max).contains(&count) {
-            valid += 1;
-        }
+        valid += i32!((min..=max).contains(&count));
     }
     part1!(valid);
 }
@@ -23,9 +21,7 @@ fn part2(input: &Vec<&str>) {
     for i in input.iter() {
         let parts: Vec<&str> = i.split(" ").collect();
         let (min, max) = get_min_max(parts[0]);
-        if (parts[2][(min - 1)..min] == parts[1][0..1]) ^ (parts[2][(max - 1)..max] == parts[1][0..1]) {
-            valid += 1;
-        }
+        valid += i32!((parts[2][(min - 1)..min] == parts[1][0..1]) ^ (parts[2][(max - 1)..max] == parts[1][0..1]));
     }
     part2!(valid);
 }
