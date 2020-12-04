@@ -31,18 +31,16 @@ fn part2(input: &Vec<&str>) {
     let mut fields = 7;
     for i in input.iter() {
         if i.len() == 0 {
-            if fields == 0 {
-                valid += 1;
-            }
+            valid += i32!(fields == 0);
             fields = 7;
             continue;
         }
-        fields -= i.contains_any(vec!["ecl:amb", "ecl:blu", "ecl:brn", "ecl:gry", "ecl:grn", "ecl:hzl", "ecl:oth"]) as i32;
-        fields -= i.contains("hcl:#") as i32;
+        fields -= i32!(i.contains_any(vec!["ecl:amb", "ecl:blu", "ecl:brn", "ecl:gry", "ecl:grn", "ecl:hzl", "ecl:oth"]));
+        fields -= i32!(i.contains("hcl:#"));
 
-        fields -= found_min_max_year(i, "byr:", 1920, 2002) as i32;
-        fields -= found_min_max_year(i, "eyr:", 2020, 2030) as i32;
-        fields -= found_min_max_year(i, "iyr:", 2010, 2020) as i32;
+        fields -= i32!(found_min_max_year(i, "byr:", 1920, 2002));
+        fields -= i32!(found_min_max_year(i, "eyr:", 2020, 2030));
+        fields -= i32!(found_min_max_year(i, "iyr:", 2010, 2020));
 
         if i.contains("pid:") {
             let idx = i.find("pid:").unwrap()+4;
@@ -52,21 +50,19 @@ fn part2(input: &Vec<&str>) {
                 if i.len() >= idx+10 {
                     num2 = i[idx..idx+10].parse::<i64>().unwrap_or(0);
                 }
-                if num1 > 0 && num2 == 0 {
-                    fields -= 1;
-                }
+                fields -= i32!(num1 > 0 && num2 == 0);
             }
 
         }
         if i.contains_all(vec!["hgt:", "cm"]) {
             let idx = i.find("hgt:").unwrap()+4;
             let num = i[idx..idx+3].parse::<i64>().unwrap_or(0);
-            fields -= ((num >= 150) && (num <= 193)) as i32;
+            fields -= i32!(num >= 150 && num <= 193);
         }
         if i.contains_all(vec!["hgt:", "in"]) {
             let idx = i.find("hgt:").unwrap()+4;
             let num = i[idx..idx+2].parse::<i64>().unwrap_or(0);
-            fields -= ((num >= 59) && (num <= 76)) as i32;
+            fields -= i32!(num >= 59 && num <= 76);
         }
     }
 
