@@ -37,16 +37,6 @@ macro_rules! str_utils {
 
 str_utils!(String, &str);
 
-// pub trait StrUtils {
-//     fn is_palindrome(&self) -> bool;
-// }
-//
-// impl StrUtils for &str {
-//     fn is_palindrome(&self) -> bool {
-//         self.to_string().to_string() == self.chars().rev().collect::<String>()
-//     }
-// }
-
 #[cfg(test)]
 mod tests {
     use crate::*;
@@ -57,6 +47,7 @@ mod tests {
         assert_eq!("aba".is_palindrome(), true);
         assert_eq!("ab a".is_palindrome(), false);
         assert_eq!("".is_palindrome(), true);
+        assert_eq!("漢".is_palindrome(), true);
         assert_eq!("abccba".to_string().is_palindrome(), true);
         assert_eq!(12344321.to_string().is_palindrome(), true);
     }

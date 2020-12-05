@@ -1,4 +1,5 @@
 pub trait IntUtils {
+    // Reverses a number, retaining signs
     fn rev(&self) -> Self;
 }
 
@@ -7,7 +8,12 @@ macro_rules! int_utils {
         $(
             impl IntUtils for $type {
                 fn rev(&self) -> Self {
-                    self.to_string().chars().rev().collect::<String>().parse::<$type>().unwrap_or(0)
+                    let is_negative = *self < 0;
+                    let to_ret = self.to_string().chars().rev().collect::<String>().parse::<$type>().unwrap_or(0);
+                    match is_negative {
+                        true => to_ret * -1,
+                        false => to_ret
+                    }
                 }
             }
         )*
@@ -22,9 +28,15 @@ mod tests {
 
     #[test]
     fn reverse_for_int_works() {
+        match "test" {
+            "test" => "s",
+            "e" => unimplemented!(),
+            _ => panic!()
+        };
         assert_eq!(321_i32.rev(), 123);
         assert_eq!(32100_i32.rev(), 123);
         assert_eq!(0_i32.rev(), 0);
         assert_eq!(1234567890_i64.rev(), 987654321);
+        assert_eq!(-1234567890_i64.rev(), -987654321);
     }
 }
