@@ -4,11 +4,8 @@ fn lets_go(input: &Vec<&str>) {
     let mut seat_ids = vec![];
     let mut max_seat_id = 0;
     for i in input {
-        let mut row = 127;
-        let mut cur_row = 64;
-
-        let mut col = 7;
-        let mut cur_col = 4;
+        let (mut row, mut cur_row) = (127, 64);
+        let (mut col, mut cur_col) = (7, 4);
 
         for c in i.chars().into_iter() {
             row -= i32!(c == 'F') * cur_row;
@@ -26,7 +23,6 @@ fn lets_go(input: &Vec<&str>) {
     }
 
     part1!(max_seat_id);
-
     seat_ids.sort();
     for (idx, s) in seat_ids.iter().enumerate() {
         if *s as usize != idx + 12 {

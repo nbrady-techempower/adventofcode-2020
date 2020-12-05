@@ -18,20 +18,6 @@ macro_rules! part2 {
     }}
 }
 
-#[macro_export]
-macro_rules! i32 {
-    ($thing:expr) => {
-        $thing as i32
-    }
-}
-
-#[macro_export]
-macro_rules! i64 {
-    ($thing:expr) => {
-        $thing as i64
-    }
-}
-
 pub fn read_file(p: &str) -> String {
     read_to_string("C:/Development/aoc-2020/src/puzzles/".to_owned() + p)
         .unwrap_or("".to_string())

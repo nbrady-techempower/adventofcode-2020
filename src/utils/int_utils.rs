@@ -1,3 +1,17 @@
+#[macro_export]
+macro_rules! i32 {
+    ($thing:expr) => {
+        $thing as i32
+    }
+}
+
+#[macro_export]
+macro_rules! i64 {
+    ($thing:expr) => {
+        $thing as i64
+    }
+}
+
 pub trait IntUtils {
     // Reverses a number, retaining signs
     fn rev(&self) -> Self;
@@ -28,11 +42,6 @@ mod tests {
 
     #[test]
     fn reverse_for_int_works() {
-        match "test" {
-            "test" => "s",
-            "e" => unimplemented!(),
-            _ => panic!()
-        };
         assert_eq!(321_i32.rev(), 123);
         assert_eq!(32100_i32.rev(), 123);
         assert_eq!(0_i32.rev(), 0);
