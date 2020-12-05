@@ -1,6 +1,6 @@
 use crate::*;
 
-fn part1(input: &Vec<&str>) {
+fn lets_go(input: &Vec<&str>) {
     let mut seat_ids = vec![];
     let mut max_seat_id = 0;
     for i in input {
@@ -11,11 +11,8 @@ fn part1(input: &Vec<&str>) {
         let mut cur_col = 4;
 
         for c in i.chars().into_iter() {
-            match c {
-                'F' => row = row - cur_row,
-                'L' => col = col - cur_col,
-                _ => ()
-            }
+            row -= i32!(c == 'F') * cur_row;
+            col -= i32!(c == 'L') * cur_col;
             cur_row = (cur_row / 2) as i32;
             if (c == 'L') || (c == 'R') {
                 cur_col = (cur_col / 2) as i32;
@@ -42,5 +39,5 @@ fn part1(input: &Vec<&str>) {
 // https://adventofcode.com/2020/day/5
 pub fn solve(input: String) {
     let input: Vec<&str> = input.split("\n").collect();
-    part1(&input);
+    lets_go(&input);
 }
