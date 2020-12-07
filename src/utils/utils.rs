@@ -25,11 +25,27 @@ pub fn read_file(p: &str) -> String {
 
 pub trait InputUtils {
     fn to_vec_i64(&self) -> Vec<i64>;
+    fn to_blocks(&self) -> Vec<Vec<&str>>;
 }
 
 impl InputUtils for String {
     fn to_vec_i64(&self) -> Vec<i64> {
         self.split('\n').map(|i| i.parse::<i64>().unwrap_or(0)).collect()
+    }
+
+    fn to_blocks(&self) -> Vec<Vec<&str>> {
+        let input: Vec<&str> = self.split("\n").collect();
+        let mut to_ret: Vec<Vec<&str>> = vec!(vec!());
+        let mut tmp: Vec<&str> = vec!();
+        for i in input {
+            if i.len() == 0 {
+                to_ret.push(tmp.clone());
+                tmp = vec!();
+            } else {
+                tmp.push(i);
+            }
+        }
+        to_ret
     }
 }
 

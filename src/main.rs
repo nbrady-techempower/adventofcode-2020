@@ -7,7 +7,7 @@ use crate::utils::str_utils::*;
 use crate::utils::int_utils::*;
 
 // Set this to 0 to run all the days
-const DAY: usize = 5;
+const DAY: usize = 7;
 
 fn get_input(day: usize) -> String {
     println!("** Day {} **", day);
