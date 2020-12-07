@@ -1,5 +1,8 @@
 use crate::*;
 use std::collections::HashSet;
+use regex::Regex;
+
+type Bag = (i32, String);
 
 // O(my) this is not good lol
 fn part1(input: &Vec<&str>) {
@@ -33,30 +36,19 @@ fn part1(input: &Vec<&str>) {
     part1!(all_bags.len());
 }
 
-fn get_bags<'a>(input: &'a Vec<&str>, bag: (i32, &str)) -> Vec<(i32, &'a str)> {
-    let mut to_ret: Vec<(i32, &str)> = vec!();
-
+fn get_bags(input: &Vec<&str>, bag: Bag) -> Vec<Bag> {
+    let mut to_ret: Vec<Bag> = vec!();
 
     for i in input {
-        if i.find(bag.1) == Some(0) {
+        if i.find(&bag.1) == Some(0) {
             if i.contains("contain no other") {
                 return to_ret;
             }
-
             let tmp = i.split(",").collect::<Vec<&str>>();
-            let s = tmp[0];
-            let s = &s[(s.find("contain ").unwrap() + 8)..];
-            let space = s.find(" ").unwrap();
-
-            let bag = &s[space..s.find(" bag").unwrap()].trim();
-            let num = s[0..space].parse::<i32>().unwrap();
-            to_ret.push((num, bag));
-            for t in 1..tmp.len() {
-                let s = tmp[t].trim();
-                let space = s.find(" ").unwrap();
-                let bag = &s[space..s.find(" bag").unwrap()].trim();
-                let num = s[0..space].parse::<i32>().unwrap();
-                to_ret.push((num, bag));
+            for t in tmp {
+                let re = Regex::new(r"(\d+) (.*) bag").unwrap();
+                let cap = re.captures(t).unwrap();
+                to_ret.push((cap[1].parse::<i32>().unwrap(), cap[2].to_string()));
             }
             return to_ret;
         }
@@ -66,10 +58,10 @@ fn get_bags<'a>(input: &'a Vec<&str>, bag: (i32, &str)) -> Vec<(i32, &'a str)> {
 
 fn part2(input: &Vec<&str>) {
     let mut to_ret = 0;
-    let mut remaining: Vec<(i32, &str)> = vec![(1, "shiny gold")];
+    let mut remaining: Vec<Bag> = vec![(1, "shiny gold".to_string())];
     while remaining.len() > 0 {
         to_ret += remaining[0].0;
-        for b in get_bags(&input,remaining[0]) {
+        for b in get_bags(&input,remaining[0].clone()) {
             remaining.push((remaining[0].0 * b.0, b.1));
         }
         remaining.remove(0);
