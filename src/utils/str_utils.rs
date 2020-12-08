@@ -64,7 +64,6 @@ macro_rules! str_utils {
 
 str_utils!(String, &str);
 
-
 #[cfg(test)]
 mod tests {
     use crate::*;

@@ -1,6 +1,8 @@
 use crate::*;
 use std::collections::HashSet;
 
+type InstructionSet = (String, i32);
+
 struct State {
     accumulator: i32,
     pos: usize,
@@ -13,6 +15,7 @@ struct State {
 }
 
 impl State {
+
     fn new(instructions: Vec<String>) -> Self {
         State {
             accumulator: 0,
@@ -36,7 +39,7 @@ impl State {
         self.swapped = false;
     }
 
-    fn parse_instruction(inst: String) -> (String, i32) {
+    fn parse_instruction(inst: String) -> InstructionSet {
         (
             inst[0..3].to_string(),
             inst[4..].parse::<i32>().unwrap()
