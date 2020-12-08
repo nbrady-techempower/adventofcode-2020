@@ -1,73 +1,130 @@
 use crate::*;
 use std::collections::HashSet;
 
-fn part1(input: &Vec<&str>) {
-    let mut run = HashSet::new();
-    let mut acc = 0;
-    let mut i = 0;
-    loop {
-        let tmp = input[i];
-        if run.contains(&i) {
-            part1!(acc);
-            break;
+struct State {
+    accumulator: i32,
+    pos: usize,
+    ran: HashSet<usize>,
+    tried_swap: HashSet<usize>,
+    instructions: Vec<String>,
+    finished: bool,
+    ran_twice: bool,
+    swapped: bool
+}
+
+impl State {
+    fn new(instructions: Vec<String>) -> Self {
+        State {
+            accumulator: 0,
+            pos: 0,
+            ran: HashSet::new(),
+            tried_swap: HashSet::new(),
+            instructions,
+            finished: false,
+            ran_twice: false,
+            swapped: false
         }
-        run.insert(i);
-        if tmp.starts_with("acc") {
-            acc += tmp[4..].parse::<i32>().unwrap_or(0);
-            i += 1;
-        } else if tmp.starts_with("jmp") {
-            i = (i as i32 + tmp[4..].parse::<i32>().unwrap_or(0)) as usize;
-        } else if tmp.starts_with("nop") {
-            i += 1;
+    }
+
+    // Resets while leaving the tried_swap values
+    fn reset(&mut self) {
+        self.accumulator = 0;
+        self.pos = 0;
+        self.ran = HashSet::new();
+        self.finished = false;
+        self.ran_twice = false;
+        self.swapped = false;
+    }
+
+    fn parse_instruction(inst: String) -> (String, i32) {
+        (
+            inst[0..3].to_string(),
+            inst[4..].parse::<i32>().unwrap()
+        )
+    }
+
+    fn move_pos(&mut self, by: i32) {
+        self.pos = (self.pos as i32 + by) as usize;
+        if self.pos >= self.instructions.len() {
+            self.finished = true;
+        }
+    }
+
+    fn acc(&mut self, num: i32) {
+        self.accumulator += num;
+        self.move_pos(1);
+    }
+
+    fn jmp(&mut self, num: i32) {
+        self.move_pos(num);
+    }
+
+    fn nop(&mut self) {
+        self.move_pos(1);
+    }
+
+    fn next(&mut self) {
+        // If a command is about to run twice, don't run it.
+        if self.ran.contains(&self.pos) {
+            self.ran_twice = true;
+            return;
+        }
+        let instruction = State::parse_instruction(self.instructions[self.pos].to_string());
+        self.ran.insert(self.pos);
+        match instruction.0.as_str() {
+            "acc" => self.acc(instruction.1),
+            "jmp" => self.jmp(instruction.1),
+            "nop" => self.nop(),
+            _ => panic!("Command parsing error.")
+        }
+    }
+
+    fn next_with_swap(&mut self) {
+        // If a command is about to run twice, our swap didn't work. Let's reset and continue.
+        if self.ran.contains(&self.pos) {
+            self.reset();
+        }
+        let instruction = State::parse_instruction(self.instructions[self.pos].to_string());
+        self.ran.insert(self.pos);
+        match instruction.0.as_str() {
+            "acc" => self.acc(instruction.1),
+            "jmp" if self.swapped || self.tried_swap.contains(&self.pos) => self.jmp(instruction.1),
+            "nop" if self.swapped || self.tried_swap.contains(&self.pos) => self.nop(),
+            "jmp" => {
+                self.swapped = true;
+                self.tried_swap.insert(self.pos);
+                self.nop();
+            },
+            "nop" => {
+                self.swapped = true;
+                self.tried_swap.insert(self.pos);
+                self.jmp(instruction.1);
+            }
+            _ => panic!("Command parsing error.")
         }
     }
 }
 
-fn part2(input: &Vec<&str>) {
-    let mut run = HashSet::new();
-    let mut tried = HashSet::new();
-    let mut swapped = false;
-    let mut acc = 0;
-    let mut i = 0;
-    loop {
-        if run.contains(&i) {
-            i = 0;
-            run = HashSet::new();
-            swapped = false;
-            acc = 0;
-        }
-        if i == input.len() {
-            part2!(acc);
-            break;
-        }
-        let tmp = input[i];
-        run.insert(i);
-        if tmp.starts_with("acc") {
-            acc += tmp[4..].parse::<i32>().unwrap_or(0);
-            i += 1;
-        } else if tmp.starts_with("jmp") {
-            if swapped || tried.contains(&i) {
-                i = (i as i32 + tmp[4..].parse::<i32>().unwrap_or(0)) as usize;
-            } else {
-                tried.insert(i);
-                i += 1;
-                swapped = true;
-            }
-        } else if tmp.starts_with("nop") {
-            if swapped || tried.contains(&i) {
-                i += 1;
-            } else {
-                tried.insert(i);
-                i = (i as i32 + tmp[4..].parse::<i32>().unwrap_or(0)) as usize;
-                swapped = true;
-            }
-        }
+fn part1(input: Vec<String>) {
+    let mut state = State::new(input);
+    while !state.ran_twice {
+        state.next();
     }
+    part1!(state.accumulator);
+}
+
+fn part2(input: Vec<String>) {
+    let mut state = State::new(input);
+
+    while !state.finished {
+        state.next_with_swap();
+    }
+    part2!(state.accumulator);
 }
 
 // https://adventofcode.com/2020/day/8
 pub fn solve(input: String) {
-    let input: Vec<&str> = input.split("\n").collect();
-    part1(&input);
-    part2(&input);
+    let input: Vec<String> = input.split("\n").map(|e| e.to_string()).collect();
+    part1(input.clone());
+    part2(input.clone());
 }
