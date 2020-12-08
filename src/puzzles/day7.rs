@@ -33,7 +33,7 @@ fn part1(input: &Vec<&str>) {
         new_direct = vec!();
     }
 
-    part1!(all_bags.len());
+    part1!(all_bags.len() - 1);
 }
 
 fn get_bags(input: &Vec<&str>, bag: Bag) -> Vec<Bag> {
