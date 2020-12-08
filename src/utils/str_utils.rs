@@ -1,9 +1,13 @@
+use itertools::Itertools;
+use std::collections::HashSet;
+
 // Implementations that can be used across String and &str and built with macros
 pub trait StrUtilsCommon {
     fn contains_any(&self, patterns: Vec<&str>) -> bool;
     fn contains_all(&self, patterns: Vec<&str>) -> bool;
     fn is_palindrome(&self) -> bool;
     fn swap(&self, idx1: usize, idx2: usize) -> String;
+    fn permutations(&self) -> Vec<String>;
 }
 
 macro_rules! str_utils {
@@ -38,6 +42,20 @@ macro_rules! str_utils {
                     tmp[idx2] = tmp[idx1];
                     tmp[idx1] = hold;
                     tmp.into_iter().collect::<String>()
+                }
+
+                fn permutations(&self) -> Vec<String> {
+                    let mut hash: HashSet<String> = HashSet::new();
+                    let mut to_ret: Vec<String> = vec!();
+                    let chars = self.chars().collect::<Vec<char>>();
+                    for i in chars.iter().permutations(chars.len()) {
+                        let s = i.iter().join("");
+                        if !hash.contains(&s) {
+                            hash.insert(s.to_string());
+                            to_ret.push(s.to_string());
+                        }
+                    }
+                    to_ret
                 }
             }
         )*
