@@ -1,7 +1,7 @@
 #[macro_export]
 macro_rules! i32 {
     ($thing:expr) => {
-        $thing as i32
+        $thing.to_i32()
     }
 }
 
@@ -9,6 +9,13 @@ macro_rules! i32 {
 macro_rules! i64 {
     ($thing:expr) => {
         $thing.to_i64()
+    }
+}
+
+#[macro_export]
+macro_rules! usize {
+    ($thing:expr) => {
+        $thing.to_usize()
     }
 }
 
@@ -37,12 +44,22 @@ macro_rules! int_utils {
 int_utils!(i32, i64);
 
 pub trait BoolUtils {
+    fn to_i32(&self) -> i32;
     fn to_i64(&self) -> i64;
+    fn to_usize(&self) -> usize;
 }
 
 impl BoolUtils for bool {
+    fn to_i32(&self) -> i32 {
+        *self as i32
+    }
+
     fn to_i64(&self) -> i64 {
         *self as i64
+    }
+
+    fn to_usize(&self) -> usize {
+        *self as usize
     }
 }
 

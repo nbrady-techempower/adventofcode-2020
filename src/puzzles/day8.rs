@@ -42,7 +42,7 @@ impl State {
     fn parse_instruction(inst: String) -> InstructionSet {
         (
             inst[0..3].to_string(),
-            inst[4..].parse::<i32>().unwrap()
+            i32!(inst[4..])
         )
     }
 

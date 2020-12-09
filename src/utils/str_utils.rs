@@ -8,7 +8,9 @@ pub trait StrUtilsCommon {
     fn is_palindrome(&self) -> bool;
     fn swap(&self, idx1: usize, idx2: usize) -> String;
     fn permutations(&self) -> Vec<String>;
+    fn to_i32(&self) -> i32;
     fn to_i64(&self) -> i64;
+    fn to_usize(&self) -> usize;
 }
 
 macro_rules! str_utils {
@@ -59,15 +61,23 @@ macro_rules! str_utils {
                     to_ret
                 }
 
+                fn to_i32(&self) -> i32 {
+                    self.parse::<i32>().unwrap()
+                }
+
                 fn to_i64(&self) -> i64 {
                     self.parse::<i64>().unwrap()
+                }
+
+                fn to_usize(&self) -> usize {
+                    self.parse::<usize>().unwrap()
                 }
             }
         )*
    }
 }
 
-str_utils!(String, &str);
+str_utils!(String, &str, str);
 
 #[cfg(test)]
 mod tests {
