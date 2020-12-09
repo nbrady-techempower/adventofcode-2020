@@ -8,7 +8,7 @@ macro_rules! i32 {
 #[macro_export]
 macro_rules! i64 {
     ($thing:expr) => {
-        $thing as i64
+        $thing.to_i64()
     }
 }
 
@@ -35,6 +35,16 @@ macro_rules! int_utils {
 }
 
 int_utils!(i32, i64);
+
+pub trait BoolUtils {
+    fn to_i64(&self) -> i64;
+}
+
+impl BoolUtils for bool {
+    fn to_i64(&self) -> i64 {
+        *self as i64
+    }
+}
 
 #[cfg(test)]
 mod tests {

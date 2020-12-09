@@ -8,6 +8,7 @@ pub trait StrUtilsCommon {
     fn is_palindrome(&self) -> bool;
     fn swap(&self, idx1: usize, idx2: usize) -> String;
     fn permutations(&self) -> Vec<String>;
+    fn to_i64(&self) -> i64;
 }
 
 macro_rules! str_utils {
@@ -56,6 +57,10 @@ macro_rules! str_utils {
                         }
                     }
                     to_ret
+                }
+
+                fn to_i64(&self) -> i64 {
+                    self.parse::<i64>().unwrap()
                 }
             }
         )*
