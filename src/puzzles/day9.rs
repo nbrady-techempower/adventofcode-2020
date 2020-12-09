@@ -6,7 +6,7 @@ fn part1(input: Vec<i64>) {
         found = false;
         i += 1;
         for j in input[(i-25)..(i-1)].iter() {
-            for k in input[(i-25)..i].iter() {
+            for k in input[(i-24)..i].iter() {
                 if j + k == input[i] {
                     found = true;
                     continue 'top;
