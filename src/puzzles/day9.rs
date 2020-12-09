@@ -32,7 +32,7 @@ fn part2(input: Vec<i64>) {
             }
         }
     }
-    part1!(found.iter().min().unwrap() + found.iter().max().unwrap());
+    part2!(found.iter().min().unwrap() + found.iter().max().unwrap());
 }
 
 // https://adventofcode.com/2020/day/9
