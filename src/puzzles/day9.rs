@@ -5,12 +5,10 @@ fn part1(input: Vec<i64>) {
     'top: while found {
         found = false;
         i += 1;
-        for j in input[(i-25)..(i-1)].iter() {
-            for k in input[(i-24)..i].iter() {
-                if j + k == input[i] {
-                    found = true;
-                    continue 'top;
-                }
+        for p in pairs(input[(i-25)..i].to_vec()) {
+            if p.0 + p.1 == input[i] {
+                found = true;
+                continue 'top;
             }
         }
     }

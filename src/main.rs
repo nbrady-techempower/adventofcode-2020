@@ -3,8 +3,9 @@ mod utils;
 
 use crate::puzzles::*;
 use crate::utils::utils::*;
-use crate::utils::str_utils::*;
 use crate::utils::int_utils::*;
+use crate::utils::str_utils::*;
+use crate::utils::vec_utils::*;
 
 // Set this to 0 to run all the days
 const DAY: usize = 9;
