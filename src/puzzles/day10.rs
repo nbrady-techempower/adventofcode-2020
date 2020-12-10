@@ -1,9 +1,6 @@
 use crate::*;
 
-fn part1(mut input: Vec<i64>) {
-    input.push(0);
-    input.sort();
-    input.push(input[input.len() - 1] + 3);
+fn part1(input: Vec<i64>) {
     let mut one = 0;
     let mut three = 0;
 
@@ -32,10 +29,7 @@ fn count(input: &Vec<i64>, i: usize) -> i32 {
     to_ret
 }
 
-fn part2(mut input: Vec<i64>) {
-    input.push(0);
-    input.sort();
-    input.push(input[input.len() - 1] + 3);
+fn part2(input: Vec<i64>) {
     let mut to_ret: i64 = 1;
     let mut start= 0;
     for i in 0..input.len() - 2 {
@@ -50,7 +44,10 @@ fn part2(mut input: Vec<i64>) {
 
 // https://adventofcode.com/2020/day/10
 pub fn solve(input: String) {
-    let input: Vec<i64> = input.to_vec_i64();
+    let mut input: Vec<i64> = input.to_vec_i64();
+    input.push(0);
+    input.sort();
+    input.push(input[input.len() - 1] + 3);
 
     part1(input.clone());
     part2(input.clone());
