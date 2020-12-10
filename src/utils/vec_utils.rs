@@ -2,8 +2,9 @@ pub fn pairs<T>(vec: Vec<T>) -> Pairs<T> {
     Pairs::new(vec)
 }
 
+#[derive(Debug)]
 pub struct Pairs<T> {
-    outer: Vec<T>,
+    vec: Vec<T>,
     outer_idx: usize,
     inner_idx: usize
 }
@@ -11,7 +12,7 @@ pub struct Pairs<T> {
 impl<T> Pairs<T> {
     fn new(vec: Vec<T>) -> Self {
         Pairs {
-            outer: vec,
+            vec,
             outer_idx: 0,
             inner_idx: 0
         }
@@ -23,20 +24,20 @@ impl<T> Iterator for Pairs<T>
 {
     type Item = (T, T);
     fn next(&mut self) -> Option<Self::Item> {
-        if self.outer.len() < 2 {
+        if self.vec.len() < 2 {
             return None;
         }
         self.inner_idx += 1;
         // Move the outer index and reset the inner index
-        if self.inner_idx >= self.outer.len() {
+        if self.inner_idx >= self.vec.len() {
             self.outer_idx += 1;
             self.inner_idx = self.outer_idx + 1;
         }
         // Once the outer index is exhausted, we done here
-        if self.outer_idx >= self.outer.len() - 1 {
+        if self.outer_idx >= self.vec.len() - 1 {
             return None;
         }
-        Some((self.outer[self.outer_idx], self.outer[self.inner_idx]))
+        Some((self.vec[self.outer_idx], self.vec[self.inner_idx]))
     }
 }
 
@@ -59,10 +60,10 @@ mod tests {
 
 
     #[test]
-    fn two() {
+    fn multiple_pairs() {
         let vec: Vec<i32> = vec!(1, 2, 3, 4, 5);
         let mut count = 0;
-        for p in pairs(vec) {
+        for p in pairs(vec.clone()) {
             match count {
                 0 => assert_eq!(p, (1, 2)),
                 1 => assert_eq!(p, (1, 3)),
@@ -78,6 +79,6 @@ mod tests {
             }
             count += 1;
         }
-        assert_eq!(count, 10);
+        assert_eq!(pairs(vec.clone()).count(), 10);
     }
 }

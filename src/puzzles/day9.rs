@@ -2,13 +2,13 @@ use crate::*;
 
 fn part1(input: Vec<i64>) {
     let (mut i, mut found) = (24, true);
-    'top: while found {
+    while found {
         found = false;
         i += 1;
-        for p in pairs(input[(i-25)..i].to_vec()) {
-            if p.0 + p.1 == input[i] {
+        for (j, k) in pairs(input[(i-25)..i].to_vec()) {
+            if j + k == input[i] {
                 found = true;
-                continue 'top;
+                break;
             }
         }
     }
