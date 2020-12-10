@@ -34,11 +34,11 @@ fn part2(input: Vec<i64>) {
     let mut start= 0;
     for i in 0..input.len() - 2 {
         if input[i] + 3 == input[i+1] && i - start > 10 {
-            to_ret *= count(&input[start..i+2].to_vec(), 0) as i64;
+            to_ret *= i64!(count(&input[start..i+2].to_vec(), 0));
             start = i;
         }
     }
-    to_ret *= count(&input[start..].to_vec(), 0) as i64;
+    to_ret *= i64!(count(&input[start..].to_vec(), 0));
     part2!(to_ret);
 }
 

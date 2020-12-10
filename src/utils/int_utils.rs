@@ -22,6 +22,8 @@ macro_rules! usize {
 pub trait IntUtils {
     // Reverses a number, retaining signs
     fn rev(&self) -> Self;
+    fn to_i32(&self) -> i32;
+    fn to_i64(&self) -> i64;
 }
 
 macro_rules! int_utils {
@@ -35,6 +37,14 @@ macro_rules! int_utils {
                         true => to_ret * -1,
                         false => to_ret
                     }
+                }
+
+                fn to_i32(&self) -> i32 {
+                    *self as i32
+                }
+
+                fn to_i64(&self) -> i64 {
+                    *self as i64
                 }
             }
         )*
