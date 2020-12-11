@@ -2,6 +2,7 @@ mod puzzles;
 mod utils;
 
 use crate::puzzles::*;
+use crate::utils::grid::*;
 use crate::utils::utils::*;
 use crate::utils::int_utils::*;
 use crate::utils::str_utils::*;
