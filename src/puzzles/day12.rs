@@ -2,7 +2,7 @@ use crate::*;
 
 fn lets_go(part: u8, input: Vec<String>) {
 
-    let mut facing = "E";
+    let mut facing = ["E", "S", "W", "N"];
     let mut x = 0;
     let mut y = 0;
 
@@ -11,27 +11,10 @@ fn lets_go(part: u8, input: Vec<String>) {
         let mut num = i32!(i[1..].to_string());
 
         match d {
-            "R" => {
-                while num > 0 {
-                    match facing {
-                        "E" => facing = "S",
-                        "W" => facing = "N",
-                        "S" => facing = "W",
-                        "N" => facing = "E",
-                        _ => ()
-                    }
-                    num -= 90;
-                }
-            },
+            "R" => facing.rotate_left((num / 90) as usize),
             "L" => {
                 while num > 0 {
-                    match facing {
-                        "E" => facing = "N",
-                        "W" => facing = "S",
-                        "S" => facing = "E",
-                        "N" => facing = "W",
-                        _ => ()
-                    }
+                    facing.rotate_left(3);
                     num -= 90;
                 }
             },
@@ -40,7 +23,7 @@ fn lets_go(part: u8, input: Vec<String>) {
             "E" => x += num,
             "W" => x -= num,
             "F" => {
-                match facing {
+                match facing[0] {
                     "S" => y -= num,
                     "N" => y += num,
                     "E" => x += num,
