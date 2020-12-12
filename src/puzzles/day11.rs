@@ -51,9 +51,7 @@ fn lets_go(part: u8, input: Vec<String>, seat_rule: i32, func: fn(&Grid) -> i32)
             new.set_point(p, new_char);
         }
     }
-
     println!(" Part {}: {}", part, old.count_char('#'));
-
 }
 
 // https://adventofcode.com/2020/day/11
@@ -61,6 +59,4 @@ pub fn solve(input: String) {
     let input: Vec<String> = input.split("\n").map(|e| e.to_string()).collect();
     lets_go(1, input.clone(), 4, num_seats);
     lets_go(2, input.clone(), 5, num_seats2);
-    // part1(input.clone(), 4, num_seats);
-    // part1(input.clone(), 5, num_seats2);
 }
