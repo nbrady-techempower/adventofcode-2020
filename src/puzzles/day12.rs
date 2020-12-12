@@ -64,31 +64,21 @@ fn lets_go2(part: u8, input: Vec<String>) {
 
     for i in input {
         let d = i[0..1].as_ref();
-        let mut num = i32!(i[1..].to_string());
+        let num = i32!(i[1..].to_string());
 
         match d {
             "N" => waypoint[0] += num,
             "E" => waypoint[1] += num,
             "S" => waypoint[2] += num,
             "W" => waypoint[3] += num,
-            "R" => {
-                while num > 0 {
-                    waypoint.rotate_right(1);
-                    num -= 90;
-                }
-            },
-            "L" => {
-                while num > 0 {
-                    waypoint.rotate_left(1);
-                    num -= 90;
-                }
-            },
+            "R" => waypoint.rotate_right((num / 90) as usize),
+            "L" => waypoint.rotate_left((num / 90) as usize),
             "F" => {
                 y -= num * waypoint[0];
                 y += num * waypoint[2];
                 x -= num * waypoint[3];
                 x += num * waypoint[1];
-            }
+            },
             _ => ()
         }
 
