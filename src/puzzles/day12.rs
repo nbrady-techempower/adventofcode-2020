@@ -57,7 +57,7 @@ fn lets_go(part: u8, input: Vec<String>) {
 
 fn lets_go2(part: u8, input: Vec<String>) {
 
-    let mut waypoint = (1, 10, 0, 0);
+    let mut waypoint = vec![1, 10, 0, 0];
 
     let mut x = 0;
     let mut y = 0;
@@ -67,27 +67,27 @@ fn lets_go2(part: u8, input: Vec<String>) {
         let mut num = i32!(i[1..].to_string());
 
         match d {
-            "N" => waypoint.0 += num,
-            "E" => waypoint.1 += num,
-            "S" => waypoint.2 += num,
-            "W" => waypoint.3 += num,
+            "N" => waypoint[0] += num,
+            "E" => waypoint[1] += num,
+            "S" => waypoint[2] += num,
+            "W" => waypoint[3] += num,
             "R" => {
                 while num > 0 {
-                    waypoint = (waypoint.3,waypoint.0,waypoint.1,waypoint.2);
+                    waypoint.rotate_right(1);
                     num -= 90;
                 }
             },
             "L" => {
                 while num > 0 {
-                    waypoint = (waypoint.1,waypoint.2,waypoint.3,waypoint.0);
+                    waypoint.rotate_left(1);
                     num -= 90;
                 }
             },
             "F" => {
-                y -= num * waypoint.0;
-                y += num * waypoint.2;
-                x -= num * waypoint.3;
-                x += num * waypoint.1;
+                y -= num * waypoint[0];
+                y += num * waypoint[2];
+                x -= num * waypoint[3];
+                x += num * waypoint[1];
             }
             _ => ()
         }
