@@ -42,8 +42,8 @@ fn part2(_: Vec<String>) {
         if timestamp % 8_230_000_000 == 804 {
             part2!(timestamp);
         }
+        // Removed 823 check since it will always be true
         if
-            ((timestamp + 19) % 823 == 0) &&
             ((timestamp + 50) % 443 == 0) &&
             (timestamp % 19 == 0) &&
             ((timestamp + 9) % 41 == 0) &&
