@@ -60,7 +60,7 @@ fn part2(_: Vec<String>) {
 
 }
 
-// https://adventofcode.com/2020/day/12
+// https://adventofcode.com/2020/day/13
 pub fn solve(input: String) {
     let input: Vec<String> = input.split("\n").map(|e| e.to_string()).collect();
     part1(input.clone());
