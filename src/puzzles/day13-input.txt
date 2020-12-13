@@ -1,0 +1,33 @@
+1005162
+19,x,x,x,x,x,x,x,x,41,x,x,x,x,x,x,x,x,x,823,x,x,x,x,x,x,x,23,x,x,x,x,x,x,x,x,17,x,x,x,x,x,x,x,x,x,x,x,29,x,443,x,x,x,x,x,37,x,x,x,x,x,x,13
+
+443 is in index 50
+823 is in index 19
+
+has to be a multiple of 804 for 823 to be in the right spot
+has to be a multiple of 393 for 443 to be in the right spot
+
+(timestamp + 0) % 19 as usize == 0
+(timestamp + 9) % 41 as usize == 0
+(timestamp + 19) % 823 as usize == 0
+(timestamp + 27) % 23 as usize == 0
+(timestamp + 36) % 17 as usize == 0
+(timestamp + 48) % 29 as usize == 0
+(timestamp + 50) % 443 as usize == 0
+(timestamp + 56) % 37 as usize == 0
+(timestamp + 63) % 13 as usize == 0
+
+t + 9 % 41 = 0
+t + 50 % 443 = 0
+
+ Part 1: 0": ""19"
+ Part 1: 9": ""41"
+ Part 1: 19": ""823"
+ Part 1: 27": ""23"
+ Part 1: 36": ""17"
+ Part 1: 48": ""29"
+ Part 1: 50": ""443"
+ Part 1: 56": ""37"
+ Part 1: 63": ""13"
+
+(timestamp + idx) as i32 % i32!(id) != 0
