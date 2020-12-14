@@ -39,7 +39,7 @@ fn part2(_: Vec<String>) {
     loop {
         timestamp += 823;
         // just something to see how fast we're iterating
-        if timestamp % 8_230_000_000 == 804 {
+        if timestamp % 823_000_000_000 == 804 {
             part2!(timestamp);
         }
         // Removed 823 check since it will always be true
