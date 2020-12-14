@@ -5,7 +5,7 @@ fn add_mask(mask: String, num: String, part1: bool) -> String {
     let mut to_ret = "".to_string();
     for (u, c) in mask.chars().enumerate() {
         to_ret = match c {
-            'X'|'0' if c == 'X' && part1 || c == '0' && !part1 => format!("{}{}", to_ret, &num[u..u+1]),
+            'X'|'0' if c == 'X' && part1 || c == '0' && !part1 => string!(to_ret, &num[u..u+1]),
             _ => format!("{}{}", to_ret, c)
         };
     }

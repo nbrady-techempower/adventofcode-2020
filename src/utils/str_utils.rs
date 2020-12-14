@@ -13,6 +13,17 @@ pub trait StrUtilsCommon {
     fn to_usize(&self) -> usize;
 }
 
+#[macro_export]
+macro_rules! string {
+    ($($x: expr),*) => {{
+        let mut to_ret = "".to_string();
+        $(
+            to_ret = to_ret.to_string() + format!("{}", $x).as_str();
+        )*
+        to_ret
+    }}
+}
+
 macro_rules! str_utils {
     ($($type: ty),*) => {
         $(
