@@ -12,6 +12,7 @@ pub mod day11;
 pub mod day12;
 pub mod day13;
 pub mod day14;
+pub mod day15;
 
 pub fn get_puzzles() -> Vec<fn(String)> {
     vec![
@@ -28,6 +29,7 @@ pub fn get_puzzles() -> Vec<fn(String)> {
         day11::solve,
         day12::solve,
         day13::solve,
-        day14::solve
+        day14::solve,
+        day15::solve
     ]
 }

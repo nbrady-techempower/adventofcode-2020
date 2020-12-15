@@ -4,7 +4,7 @@ use std::fs::read_to_string;
 macro_rules! part1 {
     ($($x: expr),*) => {{
         print!(" Part 1: ");
-        $(print!("{:?}", $x);)*
+        $(print!("{:?} ", $x);)*
         println!();
     }}
 }
@@ -13,7 +13,7 @@ macro_rules! part1 {
 macro_rules! part2 {
     ($($x: expr),*) => {{
         print!(" Part 2: ");
-        $(print!("{:?}", $x);)*
+        $(print!("{:?} ", $x);)*
         println!();
     }}
 }
