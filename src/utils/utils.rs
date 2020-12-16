@@ -35,7 +35,8 @@ impl InputUtils for String {
 
     fn to_blocks(&self) -> Vec<Vec<&str>> {
         let input: Vec<&str> = self.split("\n").collect();
-        let mut to_ret: Vec<Vec<&str>> = vec!(vec!());
+        println!("{:?}", input);
+        let mut to_ret: Vec<Vec<&str>> = vec!();
         let mut tmp: Vec<&str> = vec!();
         for i in input {
             if i.len() == 0 {
@@ -44,6 +45,9 @@ impl InputUtils for String {
             } else {
                 tmp.push(i);
             }
+        }
+        if tmp.len() > 1 {
+            to_ret.push(tmp.clone());
         }
         to_ret
     }
