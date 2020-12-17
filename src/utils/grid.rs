@@ -4,27 +4,70 @@ pub enum DIR {
 
 #[derive(Debug, Clone, Copy)]
 pub struct Point {
-    x: i32,
-    y: i32
+    pub x: i32,
+    pub y: i32
 }
 
 #[derive(Debug, Clone)]
 pub struct Grid {
     map: Vec<Vec<char>>,
     pub pos: Point,
-    iter_pos: Point
+    iter_pos: Point,
+    pub num_rows: usize,
+    pub num_cols: usize
 }
 
 impl Grid {
     pub fn new(map: Vec<String>) -> Self {
         let mut v: Vec<Vec<char>> = vec!();
-        for i in map {
+        for i in &map {
             v.push(i.chars().collect());
         }
         Self {
             map: v,
             pos: Point { x: 0, y: 0 },
-            iter_pos: Point { x: 0, y: 0 }
+            iter_pos: Point { x: 0, y: 0 },
+            num_rows: map.len(),
+            num_cols: map[0].len()
+        }
+    }
+
+    pub fn new_padded(map: Vec<String>) -> Self {
+        let mut v: Vec<Vec<char>> = vec!();
+
+        for (i, s) in map.iter().enumerate() {
+            v.push(s.chars().collect());
+            v[i].insert(0, '.');
+            v[i].push('.');
+        }
+
+        v.insert(0,v[0].iter().map(|c| '.').collect::<Vec<char>>());
+        v.push(v[0].iter().map(|c| '.').collect::<Vec<char>>());
+
+        Self {
+            map: v,
+            pos: Point { x: 0, y: 0 },
+            iter_pos: Point { x: 0, y: 0 },
+            num_rows: map.len() + 2,
+            num_cols: map[0].len() + 2
+        }
+    }
+
+    pub fn new_empty(num_rows: usize, num_cols: usize) -> Self {
+        let mut v: Vec<Vec<char>> = vec!();
+        for i in 0..num_rows {
+            let mut chars: Vec<char> = vec!();
+            for j in 0..num_cols {
+                chars.push('.');
+            }
+            v.push(chars);
+        }
+        Self {
+            map: v,
+            pos: Point { x: 0, y: 0 },
+            iter_pos: Point { x: 0, y: 0 },
+            num_rows,
+            num_cols
         }
     }
 
